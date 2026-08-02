@@ -1,0 +1,25 @@
+# build artifacts
+build/
+*.o
+*.a
+*.out
+
+# audit binary
+tools/residue-audit/audit
+
+# reports
+reports/
+*.report.json
+
+# python
+__pycache__/
+*.pyc
+.venv/
+
+# editors
+.vscode/
+.idea/
+
+# os
+.DS_Store
+Thumbs.db
