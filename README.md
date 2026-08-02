@@ -17,6 +17,12 @@ A 2026-04 audit of agent-harness isolation exposed that mainstream harnesses can
 
 ## Quick start
 
+```bash
+cd tools/residue-audit
+make
+./audit
+```
+
 The tool spawns a standard `fork` + `exec` chain and reports the measured residue, item by item, in bytes. Measured output (Debian container, x86-64, glibc — 2026-08-02):
 
 ```
@@ -38,6 +44,8 @@ The tool spawns a standard `fork` + `exec` chain and reports the measured residu
 ```
 
 **A standard "cold" start carries ~217 B of architectural state plus 16 MiB of inherited pages (fork model).** `from-zero` is a claim, not a property.
+
+If your harness claims "clean start per test", run this and check the number.
 
 ## The claim
 

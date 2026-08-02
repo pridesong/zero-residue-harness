@@ -1,0 +1,31 @@
+name: residue-audit
+
+on:
+  push:
+    paths: ["tools/residue-audit/**", ".github/workflows/ci.yml"]
+  pull_request:
+    paths: ["tools/residue-audit/**"]
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        working-directory: tools/residue-audit
+        run: make
+
+      - name: Run residue audit
+        working-directory: tools/residue-audit
+        run: ./audit
+
+      - name: Verify probe contract (residue must be nonzero — the point)
+        working-directory: tools/residue-audit
+        run: |
+          OUT=$(./audit 2>/dev/null)
+          echo "$OUT"
+          echo "$OUT" | grep -q '"signal_mask_set_bits": 2' || { echo "FAIL: signal mask not preserved across exec"; exit 1; }
+          echo "$OUT" | grep -qE '"non_cloexec_fds": [4-9]' || { echo "FAIL: parent fds not preserved across exec (expected >=4: stdio + parent-opened)"; exit 1; }
+          echo "OK: POSIX state survived exec (residue present, as expected)"

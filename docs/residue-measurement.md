@@ -40,6 +40,9 @@ A 64 MiB anonymous region, touched every 16 KiB by the parent, then `fork`:
 | COW-inherited touched pages | 4096 |
 | Inherited bytes | 16 MiB |
 
+The child process inherits the parent's touched pages via copy-on-write —
+16 MiB of warmed state that a "fresh" worker is not actually fresh on.
+
 ## Conclusion
 
 1. **`exec` is state inheritance, not state creation.** The child carries the

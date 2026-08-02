@@ -2,7 +2,7 @@
 
 `0 B cross-test residue` is meaningless without a precise domain of measurement.
 This document is the contract: **what counts as residue, what does not, and how
- each byte is verified.** Every artifact in this repository (auditor, simulator,
+each byte is verified.** Every artifact in this repository (auditor, simulator,
 RTL) must reference this document. If the contract changes, everything changes
 with it.
 
